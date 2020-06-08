@@ -1,18 +1,11 @@
-1. create a jenkins pipeline job.
-2. declarative pipeline
-3. where my pipeline should run.
-4. tools my pipeline should use.
-5. my pipeline will always maintain 10 max builds.
-6. checkout the sourcecode from git.
-7. build the source code using maven.
-
-
 pipeline{
     agent any
+    tools{
+        maven 'M2_HOME'
+    }
 
-    option{
-        properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '10', numToKeepStr: '2'))])
-
+    options{
+        buildDiscarder(logRotator(numToKeepStr: '1', artifactNumToKeepStr: '1'))
     }
     stages{
         stage("Display PATH of Jenkins"){
